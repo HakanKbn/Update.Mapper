@@ -1,12 +1,15 @@
-﻿namespace Update.Mapper
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Update.Mapper
 {
     public class Product
     {
         public  int Id { get; set; }
+        public   DateOnly Tarih { get; set; }
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public int CategoryId { get; set; }
-
-        public Category Category { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

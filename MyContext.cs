@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Runtime.InteropServices;
 
 namespace Update.Mapper
 {
@@ -8,7 +10,21 @@ namespace Update.Mapper
         {
 
         }
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<DateOnly>()
+       .HaveConversion<DateOnlyConverter>()
+       .HaveColumnType("date");
+            base.ConfigureConventions(configurationBuilder);
+        }
         public DbSet<Product> Products { get; set; }
        public DbSet<Category> Categories { get; set; }
+    }
+
+    public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+    {
+        public DateOnlyConverter() : base(dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue), dateTime => DateOnly.FromDateTime(dateTime))
+        {
+        }
     }
 }

@@ -60,8 +60,6 @@ namespace Update.Mapper.Controllers
                         category.ProductList[i] = _mapper.Map<ProductUpdateDTO, Product>( categoryUpdateDTO.ProductList[j], category.ProductList[i]);
                     }
                 }
-
-
             }
 
 
