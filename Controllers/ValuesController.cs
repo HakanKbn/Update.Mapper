@@ -2,6 +2,7 @@
 using AutoMapper.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Update.Mapper.Model;
 
 namespace Update.Mapper.Controllers
 {
@@ -18,31 +19,19 @@ namespace Update.Mapper.Controllers
             _mapper = mapper;
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(CategoryCreateDTO categoryCreateDTO) 
-        //{
-        //    Category category = _mapper.Map<Category>(categoryCreateDTO);
-        //    await _myContext.AddAsync(category);
-        //    await _myContext.SaveChangesAsync();
-        //    return Ok();
-        //}
-        //[HttpGet]
-        //public async Task<ActionResult<CategoryDTO>> Get(int Id)
-        //{
-        //    var A = await _myContext.Categories.Include(x => x.ProductList).Where(x => x.Id == Id).FirstOrDefaultAsync();
-        //    var aa = _mapper.Map<CategoryDTO>(A);
-        //    return Ok(aa);
-        //}
-        
-        //[HttpPut]
-        //public async Task<IActionResult> Update(CategoryUpdateDTO categoryUpdateDTO) 
-        //{
-        //    //var category = await _myContext.Categories
-        //    //    .Persist(_mapper).InsertOrUpdateAsync<CategoryUpdateDTO>(categoryUpdateDTO);
-
+        [HttpPost]
+        public async Task<IActionResult> Create(string kod, int tipId)
+        {
+            Referans category = new Referans
+            {
+                kod = kod,
+                tipId = tipId
+            };
+            await _myContext.AddAsync(category);
+            await _myContext.SaveChangesAsync();
+            return Ok();
+        }
    
-        //    return Ok();
-        //}
 
     }
 }
