@@ -1,15 +1,11 @@
 # Base image olarak resmi .NET SDK kullan
-# .NET 7.0 SDK ile Build Aşaması
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-COPY . .
-RUN dotnet publish -c Release -o out
+EXPOSE 80
 
-# .NET 7.0 Runtime ile Çalıştırma Aşaması
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
-WORKDIR /app
-COPY --from=build /app/out ./
-ENTRYPOINT ["dotnet", "Update.Mapper.dll"]
+# Build aşaması
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
 
 # Proje dosyalarını kopyala ve derle
 COPY ["Update.Mapper.csproj", "./"]
