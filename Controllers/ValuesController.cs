@@ -18,6 +18,16 @@ namespace Update.Mapper.Controllers
             _myContext = myContext;
             _mapper = mapper;
         }
+        [HttpGet]
+        public IActionResult Get2() 
+        {
+
+            return Ok();
+                
+                
+                
+                }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(string kod, int tipId)
