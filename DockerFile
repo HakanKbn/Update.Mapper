@@ -8,11 +8,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Proje dosyalarını kopyala ve derle
-COPY ["YourProject.csproj", "./"]
+COPY ["Update.Mapper.csproj", "./"]
 RUN dotnet restore "./YourProject.csproj"
 
 COPY . .
-RUN dotnet publish "./YourProject.csproj" -c Release -o /app/publish
+RUN dotnet publish "./Update.Mapper.csproj" -c Release -o /app/publish
 
 # Runtime image
 FROM base AS final
