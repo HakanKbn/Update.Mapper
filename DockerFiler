@@ -1,0 +1,21 @@
+# Base image olarak resmi .NET SDK kullan
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+# Build aşaması
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Proje dosyalarını kopyala ve derle
+COPY ["YourProject.csproj", "./"]
+RUN dotnet restore "./YourProject.csproj"
+
+COPY . .
+RUN dotnet publish "./YourProject.csproj" -c Release -o /app/publish
+
+# Runtime image
+FROM base AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "YourProject.dll"]
