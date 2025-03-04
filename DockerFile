@@ -9,7 +9,7 @@ WORKDIR /src
 
 # Proje dosyalarını kopyala ve derle
 COPY ["Update.Mapper.csproj", "./"]
-RUN dotnet restore "./YourProject.csproj"
+RUN dotnet restore "./Update.Mapper.csproj"
 
 COPY . .
 RUN dotnet publish "./Update.Mapper.csproj" -c Release -o /app/publish
@@ -18,4 +18,4 @@ RUN dotnet publish "./Update.Mapper.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "YourProject.dll"]
+ENTRYPOINT ["dotnet", "Update.Mapper.dll"]
